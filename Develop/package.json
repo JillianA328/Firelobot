@@ -16,7 +16,10 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "apollo-server-express": "^2.25.2",
+    "@apollo/client": "^3.4.10",
+    "apollo-boost": "^0.4.9",
+    "apollo-server": "^3.3.0",
+    "bcrypt": "^5.0.1",
     "graphql": "^15.5.3"
   }
 }
