@@ -40,6 +40,7 @@ const resolvers = {
             return { token, user };
         },
         saveBook: async (parent, args, context) => {
+            console.log('saving book...')
             if (context.user) {
                 const currentUser =
 

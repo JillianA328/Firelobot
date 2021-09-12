@@ -3,7 +3,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import { gql, useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { LOGIN_USER } from '../utils/mutations';
-import { loginUser } from '../utils/API';
+// import { loginUser } from '../utils/API';
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
@@ -25,6 +25,7 @@ const LoginForm = () => {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -36,15 +37,20 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await loginUser(userFormData);
+      // const response = await loginUser(userFormData);
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      const { data } = await login({
+        variables: {
+          ...userFormData
+        }
+      })
+      // if (!response.ok) {
+      //   throw new Error('something went wrong!');
+      // }
 
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
+      // const { token, user } = await response.json();
+      console.log(data.user);
+      Auth.login(data.token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);

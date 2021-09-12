@@ -6,22 +6,30 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
+// import ApolloClient from 'apollo-boost';
+import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 
+
+// const client = new ApolloClient({
+//   request: operation => {
+//     const token = localStorage.getItem('id_token');
+
+//     operation.setContext({
+//       headers: {
+//         authorization: token ? `Bearer ${token}` : ''
+//       }
+//     });
+//   },
+//   uri: '/graphql'
+// });
+const httpLink = createHttpLink({
+  uri: 'http://localhost:3001/graphql',
+});
 
 const client = new ApolloClient({
-  request: operation => {
-    const token = localStorage.getItem('id_token');
-
-    operation.setContext({
-      headers: {
-        authorization: token ? `Bearer ${token}` : ''
-      }
-    });
-  },
-  uri: '/graphql'
+  link: httpLink,
+  cache: new InMemoryCache(),
 });
 
 function App() {
